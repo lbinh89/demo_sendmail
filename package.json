@@ -1,0 +1,23 @@
+{
+  "name": "listen_send_mail",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "email-templates": "^4.0.1",
+    "express": "^4.16.3",
+    "express-mailer": "^0.3.1",
+    "express-validator": "^5.2.0",
+    "mysql": "^2.15.0",
+    "nodemailer": "^4.6.7",
+    "nodemon": "^1.17.5"
+  }
+}
