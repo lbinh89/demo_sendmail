@@ -5,8 +5,8 @@ let Category={
     getAllCategory:function(){
         return new Promise((resolve, reject) => {
             db.query("SELECT * FROM category", (err, results) => {
-                if(err) reject(err);
-                resolve(results);
+                if(err) return reject(err);
+                return resolve(results);
             })
         });
     },
