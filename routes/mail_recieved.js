@@ -3,6 +3,8 @@ const express = require ('express'),
     router = express.Router();
 
 // Get Category Model
+const Category = require('../models/category');
+// Get Mail Model
 const mailRecieved = require('../models/mail_recieved');
 // Import sendmail helper
 const sendMail = require('../helper/send_mail');
@@ -10,12 +12,28 @@ const sendMail = require('../helper/send_mail');
 // Set route to index.ejs
 router.get('/', function (req, res) {
     res.render('index');
+
+    // let Cate = () => {
+    //     return new Promise((resolve, reject) => {
+    //         Category.getAllCategory()
+    //             .then(categories => { resolve(categories) })
+    //             .catch(error => reject(error));
+    //     });
+    // }
+    //
+    // Cate()
+    //     .then(result => {
+    //         res.render('index', {
+    //             categories: result
+    //         });
+    //     })
+    //     .catch(err => console.log(err));
 });
 
 // Set route to send mail
 router.post('/mail-recieved', function (req, res) {
 
-    req.checkBody('sender', 'Sender must have value').not().isEmpty();
+    req.checkBody('sender', 'Invalid email').isEmail();
     req.checkBody('subject', 'Subject must have value').not().isEmpty();
     req.checkBody('reason', 'Reason must have value').not().isEmpty();
 
@@ -36,7 +54,7 @@ router.post('/mail-recieved', function (req, res) {
             if(mail){
                 sendMail(mail, (err) => {
                     if(err) return console.log(err);
-                    console.log(`${sender} send email successful`);
+                    console.log(`Send email to ${sender} successful`);
                     res.redirect('/');
                 })
             }

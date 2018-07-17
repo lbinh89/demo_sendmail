@@ -23,28 +23,16 @@ app.locals.errors = null;
 // Get Category Model
 const Category = require('./models/category');
 
-// Get all categories to pass to header.ejs
-// Category.getAllCategory(function (err, categories) {
-//     if(err) return console.log(err);
-//     app.locals.categories = categories;
-// });
-function Cate(){
-    return new Promise((resolve, reject) => {
-        Category.getAllCategory()
-            .then(categories => { resolve(categories) })
-            .catch(error => reject(error));
-    });
-}
+// Get all categories
+Category.getAllCategory(function (err, categories) {
+    if(err) return console.log(err);
+    app.locals.categories = categories;
+});
 
-Cate()
-    .then(res => app.locals.categories = res)
-    .catch(err => console.log(err));
-//
-console.log(app.locals.categories);
 // Express Validator middleware
 app.use(expressValidator({
     errorFormatter: function (param, msg, value) {
-        var namespace = param.split('.'),
+        let namespace = param.split('.'),
             root = namespace.shift(),
             formParam = root;
 
@@ -62,12 +50,12 @@ app.use(expressValidator({
 
 // Set routes
 // var category = require('./routes/category');
-var mail = require('./routes/mail_recieved');
+const mail = require('./routes/mail_recieved');
 // app.use('/category',category);
 app.use('/',mail);
 
 // Start the server
-var port = 3000;
+const port = 3000;
 app.listen(port, function () {
     console.log('Server started on port: ' + port);
 });

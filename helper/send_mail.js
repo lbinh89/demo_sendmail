@@ -29,27 +29,33 @@ let sendMail = (data, cb) => {
                     });
 
                     // setup e-mail data with unicode symbols
+                    const html = `
+                             <div class="person">
+                                <h4>
+                                    Reply to: ${emailJSON[0].sender}
+                                </h4>
+                                <p class="text-body">Your problem please contact: <br> <a href="${cat[0].mail_contact}">${cat[0].mail_contact}</a></p>
+                             </div>
+                            `;
                     let mailOptions = {
-                        from: emailJSON[0].sender,
-                        to: cat[0].mail_contact,
+                        from: 'binhle.testmail.1989@gmail.com',
+                        to: emailJSON[0].sender,
                         subject: emailJSON[0].subject,
-                        html: emailJSON[0].reason
+                        html: html
                     }
 
                     // send mail with defined transport object
                     smtpTransport.sendMail(mailOptions, function(error, response){
                         if(error) return cb(error);
                         return cb();
-
                         // if you don't want to use this transport object anymore, uncomment following line
-                        //smtpTransport.close(); // shut down the connection pool, no more messages
+                        smtpTransport.close(); // shut down the connection pool, no more messages
                     });
                 });
-                return cb();
             }
         });
     }else {
-        return cb();
+        return cb( new Error('Oops! Something wrong!!'));
     }
 };
 
