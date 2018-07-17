@@ -15,7 +15,7 @@ let MailRecieved={
     // },
     addMail:function(mail){
         return new Promise((resolve, reject) => {
-            db.query("INSERT INTO mail_recieved (sender, subject, category_recieved, reason) VALUES (?,?,?,?)",mail, (err, results) => {
+            db.query("INSERT INTO mail_recieved (email, subject, category_recieved, reason) VALUES (?,?,?,?)",mail, (err, results) => {
                 if(err) return reject(err);
                 return resolve(results);
             })

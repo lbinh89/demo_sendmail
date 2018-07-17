@@ -29,14 +29,14 @@ let sendMail = async (data) => {
                 const html = `
                              <div class="person">
                                 <h4>
-                                    Reply to: ${emailJSON[0].sender}
+                                    Reply to: ${emailJSON[0].email}
                                 </h4>
                                 <p class="text-body">Your problem please contact: <br> <a href="${getCategory[0].mail_contact}">${getCategory[0].mail_contact}</a></p>
                              </div>
                             `;
                 let mailOptions = {
                     from: 'binhle.testmail.1989@gmail.com',
-                    to: emailJSON[0].sender,
+                    to: emailJSON[0].email,
                     subject: emailJSON[0].subject,
                     html: html
                 }

@@ -14,11 +14,11 @@ router.get('/', function (req, res) {
 // Set route to send mail
 router.post('/mail-recieved', async function (req, res) {
 
-    req.checkBody('sender', 'Invalid email').isEmail();
+    req.checkBody('email', 'Invalid email').isEmail();
     req.checkBody('subject', 'Subject must have value').not().isEmpty();
     req.checkBody('reason', 'Reason must have value').not().isEmpty();
 
-    let sender = req.body.sender,
+    let email = req.body.email,
         subject = req.body.subject,
         category = req.body.category,
         reason = req.body.reason,
@@ -29,13 +29,13 @@ router.post('/mail-recieved', async function (req, res) {
             errors: errors
         });
     }else {
-        let mailAdd = [sender, subject, category, reason];
+        let mailAdd = [email, subject, category, reason];
         await mailRecieved.addMail(mailAdd)
             .then(mail => {
                 sendMail(mail)
             })
             .then(() => {
-                console.log(`Send email to ${sender} successful`);
+                console.log(`Send email to ${email} successful`);
                 res.redirect('/');
             })
             .catch(err => console.log(err));
