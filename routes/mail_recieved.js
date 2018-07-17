@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
 });
 
 // Set route to send mail
-router.post('/mail-recieved', async function (req, res) {
+router.post('/mail-recieved', async function (req, res, next) {
 
     req.checkBody('email', 'Invalid email').isEmail();
     req.checkBody('subject', 'Subject must have value').not().isEmpty();
@@ -29,18 +29,17 @@ router.post('/mail-recieved', async function (req, res) {
             errors: errors
         });
     }else {
-        let mailAdd = [email, subject, category, reason];
-        await mailRecieved.addMail(mailAdd)
-            .then(mail => {
-                sendMail(mail)
-            })
-            .then(() => {
-                console.log(`Send email to ${email} successful`);
-                res.redirect('/');
-            })
-            .catch(err => console.log(err));
+        try{
+            let mailAdd = [email, subject, category, reason];
+            let mailData = await mailRecieved.addMail(mailAdd);
+            await sendMail(mailData);
+            console.log(`Send email to ${email} successful`);
+            res.redirect('/');
+        }catch (e) {
+            console.log(`Send email to ${email} fail`);
+            return next(e);
+        }
     }
-
 });
 
 // Exports

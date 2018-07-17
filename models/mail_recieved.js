@@ -1,4 +1,4 @@
-const db = require('../config/database'); //reference of dbconnection.js
+const db = require('../config/database'); //reference of database.js
 
 let MailRecieved={
 
