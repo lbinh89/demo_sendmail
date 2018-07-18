@@ -23,11 +23,10 @@ app.locals.errors = null;
 // Get Category Model
 const Category = require('./models/category');
 
-// Get all categories
-Category.getAllCategory(function (err, categories) {
-    if(err) return console.log(err);
-    app.locals.categories = categories;
-});
+// // Get all categories
+Category.getAllCategory()
+    .then(categories => app.locals.categories = categories)
+    .catch(e => console.log(e));
 
 // Express Validator middleware
 app.use(expressValidator({

@@ -2,16 +2,13 @@ const db = require('../config/database'); //reference of database.js
 
 let Category={
 
-    // getAllCategory:function(){
-    //     return new Promise((resolve, reject) => {
-    //         db.query("SELECT * FROM category", (err, results) => {
-    //             if(err) return reject(err);
-    //             return resolve(results);
-    //         })
-    //     });
-    // },
-    getAllCategory:function(callback){
-        return db.query("SELECT * FROM category",callback);
+    getAllCategory:function(){
+        return new Promise((resolve, reject) => {
+            db.query("SELECT * FROM category", (err, results) => {
+                if(err) return reject(err);
+                return resolve(results);
+            })
+        });
     },
     getCategoryById:function(id){
         return new Promise((resolve, reject) => {
@@ -21,9 +18,6 @@ let Category={
             })
         });
     },
-    // getCategoryById:function(id,callback){
-    //     return db.query("SELECT * FROM category WHERE id=?",[id],callback);
-    // },
 };
 
 module.exports= Category;

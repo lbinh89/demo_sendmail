@@ -10,9 +10,6 @@ let MailRecieved={
             })
         });
     },
-    // getMailById:function(id,callback){
-    //     return db.query("SELECT * FROM mail_recieved WHERE id=?",[id],callback);
-    // },
     addMail:function(mail){
         return new Promise((resolve, reject) => {
             db.query("INSERT INTO mail_recieved (email, subject, category_recieved, reason) VALUES (?,?,?,?)",mail, (err, results) => {
@@ -21,9 +18,6 @@ let MailRecieved={
             })
         });
     },
-    // addMail:function(mail,callback){
-    //     return db.query("INSERT INTO mail_recieved (sender, subject, category_recieved, reason) VALUES (?,?,?,?)",mail,callback);
-    // },
 };
 
 module.exports= MailRecieved;
